@@ -1,5 +1,8 @@
 package org.usfirst.frc.team6072.robot;
 
+import org.usfirst.frc.team6072.robot.commands.PositionGear;
+import org.usfirst.frc.team6072.robot.commands.UpdateDashboard;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -43,6 +46,10 @@ public class OI {
 		for (int i = 0; i<12; i++){
 			buttons[i] = new JoystickButton(stick,i+1);
 		}
+		
+		buttons[0].whenActive(new UpdateDashboard());
+		buttons[10].whenActive(new PositionGear(0));
+		buttons[11].whenActive(new PositionGear(5));
 	}
 	public Joystick getStick() {
 		return stick;

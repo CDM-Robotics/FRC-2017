@@ -23,6 +23,7 @@ public class Robot extends IterativeRobot {
 //	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	
 	public static Drivetrain drivetrain;
+	public static GearSlider gearslider;
 	
 	public static OI oi;
 
@@ -36,6 +37,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		drivetrain = new Drivetrain();
+		gearslider = new GearSlider();
 		
 		oi = new OI();
 //		chooser.addDefault("Default Auto", new ExampleCommand());
