@@ -20,7 +20,7 @@ import org.usfirst.frc.team6072.robot.subsystems.*;
  */
 public class Robot extends IterativeRobot {
 
-	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+//	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	
 	public static Drivetrain drivetrain;
 	
@@ -38,7 +38,7 @@ public class Robot extends IterativeRobot {
 		drivetrain = new Drivetrain();
 		
 		oi = new OI();
-		chooser.addDefault("Default Auto", new ExampleCommand());
+//		chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 	}
