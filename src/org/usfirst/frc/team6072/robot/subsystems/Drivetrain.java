@@ -20,12 +20,12 @@ public class Drivetrain extends Subsystem {
 	//public VictorSP leftMotor1, leftMotor2, leftMotor3, rightMotor1, rightMotor2, rightMotor3;
 
 	
-	VictorSP leftMotor1 = new VictorSP(RobotMap.leftMotor1);
-	VictorSP leftMotor2 = new VictorSP(RobotMap.leftMotor2);
-	VictorSP leftMotor3 = new VictorSP(RobotMap.leftMotor3);
-	VictorSP rightMotor1 = new VictorSP(RobotMap.rightMotor1);
-	VictorSP rightMotor2 = new VictorSP(RobotMap.rightMotor2);
-	VictorSP rightMotor3 = new VictorSP(RobotMap.rightMotor3);
+	VictorSP leftMotor1 = new VictorSP(RobotMap.lEFT_MOTOR_1);
+	VictorSP leftMotor2 = new VictorSP(RobotMap.lEFT_MOTOR_2);
+	VictorSP leftMotor3 = new VictorSP(RobotMap.lEFT_MOTOR_3);
+	VictorSP rightMotor1 = new VictorSP(RobotMap.RIGHT_MOTOR_1);
+	VictorSP rightMotor2 = new VictorSP(RobotMap.RIGHT_MOTOR_2);
+	VictorSP rightMotor3 = new VictorSP(RobotMap.RIGHT_MOTOR_3);
 	
 	SpeedController[] leftSideMotors = { leftMotor2, leftMotor3 };
 	SpeedController[] rightSideMotors = { rightMotor2, rightMotor3 };

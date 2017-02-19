@@ -1,7 +1,8 @@
 package org.usfirst.frc.team6072.robot;
 
-import org.usfirst.frc.team6072.robot.commands.PositionGear;
-import org.usfirst.frc.team6072.robot.commands.UpdateDashboard;
+import org.usfirst.frc.team6072.robot.commands.*;
+import org.usfirst.frc.team6072.robot.subsystems.*;
+import org.usfirst.frc.team6072.robot.triggers.*;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -40,16 +41,25 @@ public class OI {
 	// button.whenReleased(new ExampleCommand());
 	public Joystick stick;
 	public JoystickButton[] buttons = new JoystickButton [12];
+	public LimitSwitch gearLimitZero, gearLimitMax;	
 	
 	public OI(){
 		stick = new Joystick(0);
 		for (int i = 0; i<12; i++){
 			buttons[i] = new JoystickButton(stick,i+1);
 		}
+		gearLimitZero = new LimitSwitch(0);
+		gearLimitMax = new LimitSwitch(1);
 		
-		buttons[0].whenActive(new UpdateDashboard());
-		buttons[10].whenActive(new PositionGear(0));
-		buttons[11].whenActive(new PositionGear(5));
+		buttons[0].toggleWhenPressed(new PositionGear(0));
+		buttons[1].whenActive(new ResetGearSlider());
+		buttons[7].whenActive(new UpdateDashboard());
+		
+		//Limit switches for gear slider
+		gearLimitZero.whileActive(new StopGearSlider(0));
+		gearLimitZero.whileActive(new StopGearSlider(1));
+		//buttons[3].whileHeld(new PositionGear(3));
+		
 	}
 	public Joystick getStick() {
 		return stick;
@@ -58,5 +68,12 @@ public class OI {
 	public JoystickButton getStickButton(int i) {
 		return buttons[i];
 	}
+	
+	public LimitSwitch getGearLimitZero(){
+		return gearLimitZero;
+	}
+	
+	public LimitSwitch getGearLimitMax(){
+		return gearLimitMax;
+	}
 }
-

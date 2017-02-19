@@ -14,19 +14,21 @@ public class PositionGear extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	super();
-    	requires(Robot.gearslider);
+    	requires(Robot.gearSlider);
     	position = pos;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.gearslider.moveToPosition(position);
+    	//Robot.gearslider.moveToPosition(position);
+    	//Robot.oi.getStick().getThrottle();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        Robot.gearSlider.moveToPosition(Robot.oi.getStick().getThrottle());
     }
-
+    
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return false;

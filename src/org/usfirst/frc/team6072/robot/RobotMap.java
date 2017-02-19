@@ -17,12 +17,18 @@ public class RobotMap {
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
 	
-	public static int leftMotor1 = 0;
-	public static int leftMotor2 = 1;
-	public static int leftMotor3 = 2;
+	//---------MOTOR CONTROLLERS----------
+	public static int lEFT_MOTOR_1 = 0;
+	public static int lEFT_MOTOR_2 = 1;
+	public static int lEFT_MOTOR_3 = 2;
 	
-	public static int rightMotor1 = 3;
-	public static int rightMotor2 = 4;
-	public static int rightMotor3 = 5;
+	public static int RIGHT_MOTOR_1 = 3;
+	public static int RIGHT_MOTOR_2 = 4;
+	public static int RIGHT_MOTOR_3 = 5;
 	
+	//---------ENCODER POSITIONS----------
+	public static double GEAR_SLIDER_LOAD_POSITION = 1.0;
+	
+	//---------DIO CHANNELS---------------
+	public static int GEAR_LIMIT_ZERO_CHANNEL = 0;
 }

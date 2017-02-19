@@ -1,30 +1,33 @@
 package org.usfirst.frc.team6072.robot.commands;
 
 import org.usfirst.frc.team6072.robot.Robot;
+import org.usfirst.frc.team6072.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class UpdateDashboard extends Command {
-
-    public UpdateDashboard() {
-//    	requires(Robot.gearslider);
+public class StopGearSlider extends Command {
+	protected int switchSide;
+    public StopGearSlider(int side) {//1=max,0=min
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	requires(Robot.gearSlider);
+    	switchSide=side;
     }
-
+    
     // Called just before this Command runs the first time
     protected void initialize() {
+    	if (switchSide==1){
+    		Robot.gearSlider.setPosition(Robot.gearSlider.getPosition()+RobotMap.GEAR_SLIDER_LOAD_POSITION);
+    	} else if (switchSide==0){
+    		Robot.gearSlider.setPosition(Robot.gearSlider.getPosition()-RobotMap.GEAR_SLIDER_LOAD_POSITION);
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	SmartDashboard.putNumber("position", Robot.gearSlider.getPosition());
-    	SmartDashboard.putNumber("Speed", Robot.gearSlider.getSpeed());
-    	SmartDashboard.putBoolean("Limit Switch status", Robot.oi.getGearLimitZero().get());
     }
 
     // Make this return true when this Command no longer needs to run execute()
