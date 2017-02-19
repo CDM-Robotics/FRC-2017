@@ -19,10 +19,11 @@ public class StopGearSlider extends Command {
     
     // Called just before this Command runs the first time
     protected void initialize() {
+    	//Robot.gearSlider.stop();
     	if (switchSide==1){
-    		Robot.gearSlider.setPosition(Robot.gearSlider.getPosition()+RobotMap.GEAR_SLIDER_LOAD_POSITION);
+    		Robot.gearSlider.moveToPosition((Robot.gearSlider.getPosition()/4096)+RobotMap.GEAR_SLIDER_LOAD_POSITION);
     	} else if (switchSide==0){
-    		Robot.gearSlider.setPosition(Robot.gearSlider.getPosition()-RobotMap.GEAR_SLIDER_LOAD_POSITION);
+    		Robot.gearSlider.moveToPosition((Robot.gearSlider.getPosition()/4096)-RobotMap.GEAR_SLIDER_LOAD_POSITION);
     	}
     }
 

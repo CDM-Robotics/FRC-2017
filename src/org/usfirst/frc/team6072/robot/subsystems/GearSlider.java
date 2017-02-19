@@ -30,7 +30,7 @@ public class GearSlider extends Subsystem {
        
         /* set the peak and nominal outputs, 12V means full */
         talon.configNominalOutputVoltage(+0f, -0f);
-        talon.configPeakOutputVoltage(+8f, -8f);
+        talon.configPeakOutputVoltage(+4f, -4f);
         /* set the allowable closed-loop error,
          * Closed-Loop output will be neutral within this range.
          * See Table in Section 17.2.1 for native units per rotation. 
@@ -61,19 +61,12 @@ public class GearSlider extends Subsystem {
 	public int getSpeed(){
 		return talon.getEncVelocity();
 	}
-	public void slideDirection(int direction){
-		talon.changeControlMode(TalonControlMode.Speed);
-		if(direction==0&&!Robot.oi.getGearLimitZero().get()){
-			talon.set((512));
-		} else if (direction==1&&!Robot.oi.getGearLimitMax().get()) {
-			talon.set(512);
-		}
-	}
 	public void stop(){
 //		talon.disable();
 		talon.changeControlMode(TalonControlMode.Speed);
 		talon.set(0);
 		talon.changeControlMode(TalonControlMode.Position);
+		talon.set(getPosition());
  //       talon.enable();
 	}
 	public void setPosition(double pos){

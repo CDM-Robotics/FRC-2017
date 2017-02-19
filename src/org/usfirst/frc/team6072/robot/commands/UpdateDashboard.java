@@ -25,6 +25,10 @@ public class UpdateDashboard extends Command {
     	SmartDashboard.putNumber("position", Robot.gearSlider.getPosition());
     	SmartDashboard.putNumber("Speed", Robot.gearSlider.getSpeed());
     	SmartDashboard.putBoolean("Limit Switch status", Robot.oi.getGearLimitZero().get());
+    	
+    	if (Robot.oi.getStickButton(11).get()){
+    		Robot.gearSlider.setPosition(0);
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
