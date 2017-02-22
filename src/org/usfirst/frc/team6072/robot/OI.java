@@ -4,7 +4,9 @@ import org.usfirst.frc.team6072.robot.commands.*;
 import org.usfirst.frc.team6072.robot.subsystems.*;
 import org.usfirst.frc.team6072.robot.triggers.*;
 
+import edu.wpi.first.wpilibj.GamepadBase;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
@@ -43,23 +45,34 @@ public class OI {
 	public JoystickButton[] buttons = new JoystickButton [12];
 	public LimitSwitch gearLimitZero, gearLimitMax;	
 	
+	public XboxController gamepad;
+	public JoystickButton[] gamepadButtons = new JoystickButton[5];
+	
+	
 	public OI(){
 		stick = new Joystick(0);
+		gamepad = new XboxController(1);
 		for (int i = 0; i<12; i++){
 			buttons[i] = new JoystickButton(stick,i+1);
 		}
-		gearLimitZero = new LimitSwitch(0);
-		gearLimitMax = new LimitSwitch(1);
+		gearLimitZero = new LimitSwitch(RobotMap.GEAR_LIMIT_ZERO_CHANNEL);
+		gearLimitMax = new LimitSwitch(RobotMap.GEAR_LIMIT_MAX_CHANNEL);
 		
-		buttons[0].toggleWhenPressed(new PositionGear(0));
-		buttons[1].whenActive(new ResetGearSlider());
-		buttons[7].whenActive(new UpdateDashboard());
+		buttons[RobotMap.SHIFT_DRIVE_LOW_BUTTON].whenActive(new ShiftDriveGear(0));
+		buttons[RobotMap.SHIFT_DRIVE_HIGH_BUTTON].whenActive(new ShiftDriveGear(1));
+		
+		gamepadButtons[RobotMap.TOGGLE_MANUAL_GEAR_SLIDE_BUTTON].toggleWhenActive(new ManualGearSlide());
+		gamepadButtons[RobotMap.ACTUATE_GEAR_SLIDER_BUTTON].whenActive(new ActuateGear(2));
+		gamepadButtons[RobotMap.CLIMBER_UP_BUTTON].toggleWhenActive(new SpinClimber(0));
+		gamepadButtons[RobotMap.CLIMBER_DOWN_BUTTON].toggleWhenActive(new SpinClimber(1));
+		//buttons[0].toggleWhenPressed(new PositionGear(0));
+		//buttons[1].whenActive(new ResetGearSlider());
+		//buttons[7].whenActive(new UpdateDashboard());
 		
 		//Limit switches for gear slider
-		gearLimitZero.whileActive(new StopGearSlider(0));
-		gearLimitZero.whileActive(new StopGearSlider(1));
+		//gearLimitZero.whileActive(new StopGearSlider(0));
+		//gearLimitZero.whileActive(new StopGearSlider(1));
 		//buttons[3].whileHeld(new PositionGear(3));
-		
 	}
 	public Joystick getStick() {
 		return stick;

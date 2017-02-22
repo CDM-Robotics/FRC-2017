@@ -1,5 +1,6 @@
 package org.usfirst.frc.team6072.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import org.usfirst.frc.team6072.robot.Robot;
@@ -13,6 +14,7 @@ import com.ctre.CANTalon.TalonControlMode;
  */
 public class GearSlider extends Subsystem {
 	CANTalon talon;
+    DoubleSolenoid actuator = new DoubleSolenoid(RobotMap.GEAR_SOLENOID_OFF,RobotMap.GEAR_SOLENOID_ON);
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
@@ -61,17 +63,39 @@ public class GearSlider extends Subsystem {
 	public int getSpeed(){
 		return talon.getEncVelocity();
 	}
+	public void setSpeed(int speed){
+		talon.changeControlMode(TalonControlMode.Speed);
+		talon.set(speed);
+	}
 	public void stop(){
 //		talon.disable();
 		talon.changeControlMode(TalonControlMode.Speed);
 		talon.set(0);
-		talon.changeControlMode(TalonControlMode.Position);
-		talon.set(getPosition());
+//		talon.changeControlMode(TalonControlMode.Position);
+//		talon.set(getPosition());
  //       talon.enable();
 	}
 	public void setPosition(double pos){
 		talon.setPosition(RobotMap.GEAR_SLIDER_LOAD_POSITION);
 	}
+	public void solenoidsOn(){
+		actuator.set(DoubleSolenoid.Value.kForward);
+		
+	}
+	public void solenoidsOff(){
+		actuator.set(DoubleSolenoid.Value.kReverse);
+		
+	}
+    public int getActuationStatus(){
+    	if(actuator.get()==DoubleSolenoid.Value.kReverse){
+    		return 0; //Down
+    	} else if (actuator.get()==DoubleSolenoid.Value.kForward){
+    		return 1; //Up
+    	} else {
+    		return 2; //Something is screwed up
+    	}
+    }
+	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());

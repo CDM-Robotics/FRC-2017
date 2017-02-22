@@ -1,30 +1,26 @@
 package org.usfirst.frc.team6072.robot.commands;
 
 import org.usfirst.frc.team6072.robot.Robot;
-import org.usfirst.frc.team6072.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class StopGearSlider extends Command {
-	protected int switchSide;
-    public StopGearSlider(int side) {//1=max,0=min
+public class SpinClimber extends Command {
+	public int direction;
+    public SpinClimber(int dir) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	switchSide=side;
+    	requires(Robot.climber);
+    	direction=dir;
     }
-    
+
     // Called just before this Command runs the first time
     protected void initialize() {
-    	//Robot.gearSlider.stop();
-    	if (switchSide==1){
-    		Robot.gearSlider.moveToPosition((Robot.gearSlider.getPosition()/4096)+RobotMap.GEAR_SLIDER_LOAD_POSITION);
-    	} else if (switchSide==0){
-    		Robot.gearSlider.moveToPosition((Robot.gearSlider.getPosition()/4096)-RobotMap.GEAR_SLIDER_LOAD_POSITION);
-    	}
+    	Robot.climber.set(direction);
     }
+
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     }
@@ -36,10 +32,12 @@ public class StopGearSlider extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.climber.off();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	Robot.climber.off();
     }
 }

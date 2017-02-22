@@ -1,28 +1,35 @@
 package org.usfirst.frc.team6072.robot.commands;
 
 import org.usfirst.frc.team6072.robot.Robot;
-import org.usfirst.frc.team6072.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class StopGearSlider extends Command {
-	protected int switchSide;
-    public StopGearSlider(int side) {//1=max,0=min
+public class ActuateGear extends Command {
+	public int gearLevel;
+    public ActuateGear(int gear) {//0 = high gear, 1 = low gear
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	switchSide=side;
+    	gearLevel = gear;
     }
-    
+
     // Called just before this Command runs the first time
     protected void initialize() {
-    	//Robot.gearSlider.stop();
-    	if (switchSide==1){
-    		Robot.gearSlider.moveToPosition((Robot.gearSlider.getPosition()/4096)+RobotMap.GEAR_SLIDER_LOAD_POSITION);
-    	} else if (switchSide==0){
-    		Robot.gearSlider.moveToPosition((Robot.gearSlider.getPosition()/4096)-RobotMap.GEAR_SLIDER_LOAD_POSITION);
+    	if (gearLevel==0 && Robot.gearSlider.getActuationStatus()!=0){
+    		Robot.gearSlider.solenoidsOff();
+    	} else if (gearLevel==1 &&Robot.gearSlider.getActuationStatus()!=1){
+    		Robot.gearSlider.solenoidsOn();
+    	} else if (gearLevel==2){
+    		if (Robot.gearSlider.getActuationStatus()==0){
+    			Robot.gearSlider.solenoidsOn();
+    		} else {
+    			Robot.gearSlider.solenoidsOff();
+    		}
+    	} else {
+    		//If the solenoids somehow got screwed up, this should fix them
+    		Robot.gearSlider.solenoidsOff();
     	}
     }
     // Called repeatedly when this Command is scheduled to run

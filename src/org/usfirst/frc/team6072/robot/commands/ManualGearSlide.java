@@ -8,25 +8,28 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class StopGearSlider extends Command {
-	protected int switchSide;
-    public StopGearSlider(int side) {//1=max,0=min
+public class ManualGearSlide extends Command {
+
+    public ManualGearSlide() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	switchSide=side;
+    	requires(Robot.gearSlider);
     }
-    
+
     // Called just before this Command runs the first time
     protected void initialize() {
-    	//Robot.gearSlider.stop();
-    	if (switchSide==1){
-    		Robot.gearSlider.moveToPosition((Robot.gearSlider.getPosition()/4096)+RobotMap.GEAR_SLIDER_LOAD_POSITION);
-    	} else if (switchSide==0){
-    		Robot.gearSlider.moveToPosition((Robot.gearSlider.getPosition()/4096)-RobotMap.GEAR_SLIDER_LOAD_POSITION);
-    	}
     }
+
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	double speed = Robot.oi.gamepad.getRawAxis(0);
+    	if (speed<0 && !Robot.oi.getGearLimitMax().get()){
+    		Robot.gearSlider.setSpeed((int) (speed*RobotMap.MANUAL_GEAR_SLIDE_SPEED));    		
+    	} else if (speed>0 && !Robot.oi.getGearLimitZero().get()){
+    		Robot.gearSlider.setSpeed((int) (speed*RobotMap.MANUAL_GEAR_SLIDE_SPEED));
+    	} else {
+    		Robot.gearSlider.setSpeed((int) (speed*RobotMap.MANUAL_GEAR_SLIDE_SPEED));
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
