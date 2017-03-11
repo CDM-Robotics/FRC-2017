@@ -14,7 +14,7 @@ import com.ctre.CANTalon.TalonControlMode;
  */
 public class GearSlider extends Subsystem {
 	CANTalon talon;
-    DoubleSolenoid actuator = new DoubleSolenoid(RobotMap.GEAR_SOLENOID_OFF,RobotMap.GEAR_SOLENOID_ON);
+    DoubleSolenoid actuator = new DoubleSolenoid(1,RobotMap.GEAR_SOLENOID_OFF,RobotMap.GEAR_SOLENOID_ON);
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
@@ -63,7 +63,7 @@ public class GearSlider extends Subsystem {
 	public int getSpeed(){
 		return talon.getEncVelocity();
 	}
-	public void setSpeed(int speed){
+	public void setSpeed(double speed){
 		talon.changeControlMode(TalonControlMode.Speed);
 		talon.set(speed);
 	}

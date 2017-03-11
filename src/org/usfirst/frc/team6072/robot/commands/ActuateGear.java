@@ -17,17 +17,12 @@ public class ActuateGear extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if (gearLevel==0 && Robot.gearSlider.getActuationStatus()!=0){
+    	if (gearLevel==0){
     		Robot.gearSlider.solenoidsOff();
-    	} else if (gearLevel==1 &&Robot.gearSlider.getActuationStatus()!=1){
+    	} else if (gearLevel==1){
     		Robot.gearSlider.solenoidsOn();
-    	} else if (gearLevel==2){
-    		if (Robot.gearSlider.getActuationStatus()==0){
-    			Robot.gearSlider.solenoidsOn();
-    		} else {
-    			Robot.gearSlider.solenoidsOff();
-    		}
-    	} else {
+    	} 
+    	 else {
     		//If the solenoids somehow got screwed up, this should fix them
     		Robot.gearSlider.solenoidsOff();
     	}
@@ -38,7 +33,7 @@ public class ActuateGear extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

@@ -45,15 +45,19 @@ public class OI {
 	public JoystickButton[] buttons = new JoystickButton [12];
 	public LimitSwitch gearLimitZero, gearLimitMax;	
 	
-	public XboxController gamepad;
+	public Joystick gamepad;
 	public JoystickButton[] gamepadButtons = new JoystickButton[5];
 	
 	
 	public OI(){
 		stick = new Joystick(0);
-		gamepad = new XboxController(1);
+		gamepad = new Joystick(1);
+		
 		for (int i = 0; i<12; i++){
 			buttons[i] = new JoystickButton(stick,i+1);
+		}
+		for (int i = 0; i<5; i++){
+			gamepadButtons[i] = new JoystickButton(gamepad,i+1);
 		}
 		gearLimitZero = new LimitSwitch(RobotMap.GEAR_LIMIT_ZERO_CHANNEL);
 		gearLimitMax = new LimitSwitch(RobotMap.GEAR_LIMIT_MAX_CHANNEL);
@@ -62,9 +66,16 @@ public class OI {
 		buttons[RobotMap.SHIFT_DRIVE_HIGH_BUTTON].whenActive(new ShiftDriveGear(1));
 		
 		gamepadButtons[RobotMap.TOGGLE_MANUAL_GEAR_SLIDE_BUTTON].toggleWhenActive(new ManualGearSlide());
-		gamepadButtons[RobotMap.ACTUATE_GEAR_SLIDER_BUTTON].whenActive(new ActuateGear(2));
-		gamepadButtons[RobotMap.CLIMBER_UP_BUTTON].toggleWhenActive(new SpinClimber(0));
-		gamepadButtons[RobotMap.CLIMBER_DOWN_BUTTON].toggleWhenActive(new SpinClimber(1));
+		gamepadButtons[RobotMap.ACTUATE_GEAR_SLIDER_UP_BUTTON].whenActive(new ActuateGear(1));
+		gamepadButtons[RobotMap.ACTUATE_GEAR_SLIDER_DOWN_BUTTON].whenActive(new ActuateGear(0));
+		gamepadButtons[RobotMap.CLIMBER_UP_BUTTON].whenActive(new SpinClimber(-1));
+		gamepadButtons[RobotMap.CLIMBER_DOWN_BUTTON].whenActive(new SpinClimber(1));
+		
+		/*gamepadButtons[6].toggleWhenActive(new ManualGearSlide());
+		gamepadButtons[1].whenActive(new ActuateGear(2));
+		gamepadButtons[8].toggleWhenActive(new SpinClimber(0));
+		gamepadButtons[9].toggleWhenActive(new SpinClimber(1));
+		*/
 		//buttons[0].toggleWhenPressed(new PositionGear(0));
 		//buttons[1].whenActive(new ResetGearSlider());
 		//buttons[7].whenActive(new UpdateDashboard());

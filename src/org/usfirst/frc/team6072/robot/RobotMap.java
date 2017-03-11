@@ -23,8 +23,9 @@ public class RobotMap {
 	public static int SHIFT_DRIVE_HIGH_BUTTON=5;
 	public static int SHIFT_DRIVE_LOW_BUTTON=3;
 		//Gamepad
-	public static int TOGGLE_MANUAL_GEAR_SLIDE_BUTTON=2;
-	public static int ACTUATE_GEAR_SLIDER_BUTTON=0;
+	public static int TOGGLE_MANUAL_GEAR_SLIDE_BUTTON=4;
+	public static int ACTUATE_GEAR_SLIDER_UP_BUTTON=2;
+	public static int ACTUATE_GEAR_SLIDER_DOWN_BUTTON=0;
 	public static int CLIMBER_UP_BUTTON=1;
 	public static int CLIMBER_DOWN_BUTTON=3;
 	//---------MOTOR CONTROLLERS----------
@@ -51,8 +52,8 @@ public class RobotMap {
 	
 	//---------DIO CHANNELS---------------
 	public static int GEAR_LIMIT_ZERO_CHANNEL = 0;
-	public static int GEAR_LIMIT_MAX_CHANNEL = 0;
+	public static int GEAR_LIMIT_MAX_CHANNEL = 1;
 	
 	//---------Speeds----------------
-	public static int MANUAL_GEAR_SLIDE_SPEED = 1024;
+	public static int MANUAL_GEAR_SLIDE_SPEED = 32;
 }

@@ -39,13 +39,13 @@ public class Drivetrain extends Subsystem {
 	
 	RobotDrive robotDrive = new RobotDrive(leftSide, leftMotor1, rightSide, rightMotor1);
 	
-	DoubleSolenoid shifter = new DoubleSolenoid(RobotMap.SHIFTER_SOLENOID_OFF, RobotMap.SHIFTER_SOLENOID_ON);
+	DoubleSolenoid shifter = new DoubleSolenoid(1,RobotMap.SHIFTER_SOLENOID_OFF, RobotMap.SHIFTER_SOLENOID_ON);
 	
 	
 	public Drivetrain(){
 		super("Drivetrain System");
-		robotDrive.setInvertedMotor(MotorType.kRearLeft, true);
-		robotDrive.setInvertedMotor(MotorType.kRearRight, true);
+		robotDrive.setInvertedMotor(MotorType.kFrontLeft, true);
+		robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
 		/*
 		leftMotor1 = new VictorSP(RobotMap.leftMotor1);
 		leftMotor2 = new VictorSP(RobotMap.leftMotor2);
