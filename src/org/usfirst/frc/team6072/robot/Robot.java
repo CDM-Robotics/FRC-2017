@@ -23,6 +23,8 @@ public class Robot extends IterativeRobot {
 //	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	
 	public static Drivetrain drivetrain;
+	public static GearSlider gearSlider;
+	public static Climber climber;
 	
 	public static OI oi;
 
@@ -35,12 +37,17 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+
 		drivetrain = new Drivetrain();
+		gearSlider = new GearSlider();
+		climber = new Climber();
 		
-		oi = new OI();
+		oi = new OI();		
+		gearSlider.reset();
 //		chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
+		
 	}
 
 	/**
@@ -101,6 +108,7 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		//Scheduler.getInstance().add(new ArcadeDrive());
 	}
 
 	/**
