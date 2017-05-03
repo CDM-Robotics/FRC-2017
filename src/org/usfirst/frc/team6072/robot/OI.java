@@ -46,7 +46,7 @@ public class OI {
 	public LimitSwitch gearLimitZero, gearLimitMax;	
 	
 	public Joystick gamepad;
-	public JoystickButton[] gamepadButtons = new JoystickButton[5];
+	public JoystickButton[] gamepadButtons = new JoystickButton[7];
 	
 	
 	public OI(){
@@ -56,7 +56,7 @@ public class OI {
 		for (int i = 0; i<12; i++){
 			buttons[i] = new JoystickButton(stick,i+1);
 		}
-		for (int i = 0; i<5; i++){
+		for (int i = 0; i<6; i++){
 			gamepadButtons[i] = new JoystickButton(gamepad,i+1);
 		}
 		gearLimitZero = new LimitSwitch(RobotMap.GEAR_LIMIT_ZERO_CHANNEL);
@@ -64,12 +64,21 @@ public class OI {
 		
 		buttons[RobotMap.SHIFT_DRIVE_LOW_BUTTON].whenActive(new ShiftDriveGear(0));
 		buttons[RobotMap.SHIFT_DRIVE_HIGH_BUTTON].whenActive(new ShiftDriveGear(1));
+		buttons[0].whenActive(new UpdateDashboard());
+		//buttons[1].whenActive(new Turn(30));
+		//buttons[2].whenActive(new Turn(-30));
+//		buttons[1].whenActive(new DriveDistance(5000));
+//		buttons[1].whenActive(new PositionGear(4096));
+//		buttons[2].whenActive(new Turn());
+//		buttons[3].whenActive(new DriveDistance(24));
 		
-		gamepadButtons[RobotMap.TOGGLE_MANUAL_GEAR_SLIDE_BUTTON].toggleWhenActive(new ManualGearSlide());
+		//gamepadButtons[RobotMap.TOGGLE_MANUAL_GEAR_SLIDE_BUTTON].toggleWhenActive(new ManualGearSlide());
 		gamepadButtons[RobotMap.ACTUATE_GEAR_SLIDER_UP_BUTTON].whenActive(new ActuateGear(1));
 		gamepadButtons[RobotMap.ACTUATE_GEAR_SLIDER_DOWN_BUTTON].whenActive(new ActuateGear(0));
-		gamepadButtons[RobotMap.CLIMBER_UP_BUTTON].whenActive(new SpinClimber(-1));
-		gamepadButtons[RobotMap.CLIMBER_DOWN_BUTTON].whenActive(new SpinClimber(1));
+		gamepadButtons[RobotMap.CLIMBER_UP_BUTTON].whileActive(new SpinClimber(1)); //backwards
+		gamepadButtons[RobotMap.RESET_GEAR_SLIDER_BUTTON].whenActive(new ResetGearSlider());
+		//gamepadButtons[RobotMap.CLIMBER_DOWN_BUTTON].whenActive(new SpinClimber(1));
+		//gamepadButtons[RobotMap.CLIMBER_STOP_BUTTON].whenActive(new SpinClimber(0));
 		
 		/*gamepadButtons[6].toggleWhenActive(new ManualGearSlide());
 		gamepadButtons[1].whenActive(new ActuateGear(2));

@@ -8,8 +8,9 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class SpinClimber extends Command {
-	public int direction;
-    public SpinClimber(int dir) {
+	public double direction;
+//    public SpinClimber() {
+    public SpinClimber(double dir) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.climber);
@@ -23,6 +24,8 @@ public class SpinClimber extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	//double speed = Robot.oi.gamepad.getRawAxis(5);
+    	Robot.climber.set(direction);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -32,6 +35,7 @@ public class SpinClimber extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.climber.set(0);
     	Robot.climber.off();
     }
 
