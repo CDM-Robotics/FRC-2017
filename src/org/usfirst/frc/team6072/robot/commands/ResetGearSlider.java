@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class ResetGearSlider extends Command {
-
+	boolean stop=false;
     public ResetGearSlider() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -20,21 +20,28 @@ public class ResetGearSlider extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	//Robot.gearSlider.slideDirection(0);
+		Robot.gearSlider.solenoidsOn();
+    	Robot.gearSlider.setSpeed(-1*RobotMap.MANUAL_GEAR_SLIDE_SPEED);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.gearSlider.moveToPosition((Robot.gearSlider.getPosition()/4096)+.5);
+    	//Robot.gearSlider.moveToPosition((Robot.gearSlider.getPosition()/4096)+.5);
+    	if (Robot.oi.getGearLimitZero().get()){
+    		Robot.gearSlider.setSpeed(0);
+    		stop=true;
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.oi.getGearLimitZero().get();
+        return stop;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.gearSlider.setPosition(RobotMap.GEAR_SLIDER_LOAD_POSITION);
+		Robot.gearSlider.solenoidsOff();
+    	//Robot.gearSlider.setPosition((int)RobotMap.GEAR_SLIDER_LOAD_POSITION);
     }
 
     // Called when another command which requires one or more of the same

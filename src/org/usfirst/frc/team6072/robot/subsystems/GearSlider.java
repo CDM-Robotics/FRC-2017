@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 import org.usfirst.frc.team6072.robot.Robot;
 import org.usfirst.frc.team6072.robot.RobotMap;
+import org.usfirst.frc.team6072.robot.commands.ManualGearSlide;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
@@ -32,7 +33,7 @@ public class GearSlider extends Subsystem {
        
         /* set the peak and nominal outputs, 12V means full */
         talon.configNominalOutputVoltage(+0f, -0f);
-        talon.configPeakOutputVoltage(+4f, -4f);
+        talon.configPeakOutputVoltage(8f, -8f);
         /* set the allowable closed-loop error,
          * Closed-Loop output will be neutral within this range.
          * See Table in Section 17.2.1 for native units per rotation. 
@@ -75,8 +76,8 @@ public class GearSlider extends Subsystem {
 //		talon.set(getPosition());
  //       talon.enable();
 	}
-	public void setPosition(double pos){
-		talon.setPosition(RobotMap.GEAR_SLIDER_LOAD_POSITION);
+	public void setPosition(int pos){
+		talon.setPosition(pos);
 	}
 	public void solenoidsOn(){
 		actuator.set(DoubleSolenoid.Value.kForward);
@@ -99,5 +100,6 @@ public class GearSlider extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    	setDefaultCommand(new ManualGearSlide());
     }
 }

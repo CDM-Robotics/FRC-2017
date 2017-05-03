@@ -19,19 +19,22 @@ public class ManualGearSlide extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Scheduler.getInstance().add(new ActuateGear(1));
+    	//Scheduler.getInstance().add(new ActuateGear(1));
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	double speed = Robot.oi.gamepad.getRawAxis(0);
     	//double speed = Robot.oi.getStick().getRawAxis(2);
-    	if (speed<0 && !Robot.oi.getGearLimitMax().get()){
-    		Robot.gearSlider.setSpeed((int) (speed*RobotMap.MANUAL_GEAR_SLIDE_SPEED));    		
-    	} else if (speed>0 && !Robot.oi.getGearLimitZero().get()){
-    		Robot.gearSlider.setSpeed((int) (speed*RobotMap.MANUAL_GEAR_SLIDE_SPEED));
+    	if (speed>0 && Robot.oi.getGearLimitMax().get() || speed<0 && Robot.oi.getGearLimitZero().get()||Robot.gearSlider.getSpeed()<0 && Robot.oi.getGearLimitZero().get() || Robot.gearSlider.getSpeed()>0 && Robot.oi.getGearLimitMax().get()){
+    		Robot.gearSlider.setSpeed(0);
+    		
+    		//    		Robot.gearSlider.setSpeed((RobotMap.MANUAL_GEAR_SLIDE_SPEED));    		
+//    		Robot.gearSlider.setSpeed((int) (speed*RobotMap.MANUAL_GEAR_SLIDE_SPEED));
+//    	} else if (Robot.gearSlider.getSpeed()<0 && Robot.oi.getGearLimitZero().get() || Robot.gearSlider.getSpeed()>0 && Robot.oi.getGearLimitMax().get()){
     	} else {
     		Robot.gearSlider.setSpeed((int) (speed*RobotMap.MANUAL_GEAR_SLIDE_SPEED));
+ //   		Robot.gearSlider.setSpeed(0);
     	}
     }
 

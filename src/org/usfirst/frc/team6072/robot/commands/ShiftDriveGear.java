@@ -21,10 +21,7 @@ public class ShiftDriveGear extends Command {
     		Robot.drivetrain.solenoidsOff();
     	} else if (gearLevel==1 &&Robot.drivetrain.getGearShift()!=1){
     		Robot.drivetrain.solenoidsOn();
-    	} else {
-    		//If the solenoids somehow got screwed up, this should fix them
-    		Robot.drivetrain.solenoidsOff();
-    	}
+    	} 
     }
 
     // Called repeatedly when this Command is scheduled to run

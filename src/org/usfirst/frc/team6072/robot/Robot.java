@@ -1,16 +1,21 @@
 
 package org.usfirst.frc.team6072.robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team6072.PID.DistancePID;
 import org.usfirst.frc.team6072.robot.commands.*;
 import org.usfirst.frc.team6072.robot.subsystems.*;
 
+import com.kauailabs.navx.frc.AHRS;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -21,13 +26,11 @@ import org.usfirst.frc.team6072.robot.subsystems.*;
 public class Robot extends IterativeRobot {
 
 //	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
-	
 	public static Drivetrain drivetrain;
 	public static GearSlider gearSlider;
 	public static Climber climber;
 	
 	public static OI oi;
-
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -38,14 +41,27 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 
+		CameraServer.getInstance().startAutomaticCapture();
+		RobotMap.ahrs = new AHRS(SPI.Port.kMXP);
+		
 		drivetrain = new Drivetrain();
 		gearSlider = new GearSlider();
 		climber = new Climber();
+		RobotMap.distancePIDLeft = new DistancePID(drivetrain.getLeftEncoder());
+		RobotMap.distancePIDRight = new DistancePID(drivetrain.getRightEncoder());
+		
 		
 		oi = new OI();		
+		NetworkTable.shutdown();
+		NetworkTable.setServerMode();
+		NetworkTable.initialize();
+		//NetworkTable.setIPAddress(RobotMap.JETSON_ADDRESS);
+		RobotMap.visionTable = NetworkTable.getTable("vision_data");
 		gearSlider.reset();
-//		chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
+		LiveWindow.addSensor("Drive Subsystem", "navX", RobotMap.ahrs);
+		chooser.addDefault("Center Auto", new AutoCenter());
+		chooser.addObject("Left Auto", new AutoLeft());
+		chooser.addObject("Right Auto", new AutoRight());
 		SmartDashboard.putData("Auto mode", chooser);
 		
 	}
@@ -108,7 +124,9 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		//Scheduler.getInstance().add(new ResetGearSlider());
 		//Scheduler.getInstance().add(new ArcadeDrive());
+		//Scheduler.getInstance().add(new ManualGearSlide());
 	}
 
 	/**
