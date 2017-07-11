@@ -36,6 +36,8 @@ public class RobotMap {
 	public static int CLIMBER_UP_BUTTON=1;
 	public static int RESET_GEAR_SLIDER_BUTTON=3;
 	public static int CLIMBER_STOP_BUTTON=5;
+	public static int RIGHT_BUMPER = 11;
+	
 	//---------MOTOR CONTROLLERS----------
 	public static int lEFT_MOTOR_1 = 0;
 	public static int lEFT_MOTOR_2 = 1;

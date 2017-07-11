@@ -77,6 +77,8 @@ public class OI {
 		gamepadButtons[RobotMap.ACTUATE_GEAR_SLIDER_DOWN_BUTTON].whenActive(new ActuateGear(0));
 		gamepadButtons[RobotMap.CLIMBER_UP_BUTTON].whileActive(new SpinClimber(1)); //backwards
 		gamepadButtons[RobotMap.RESET_GEAR_SLIDER_BUTTON].whenActive(new ResetGearSlider());
+		gamepadButtons[RobotMap.RIGHT_BUMPER].whenActive(new GearHolderPosition());
+		
 		//gamepadButtons[RobotMap.CLIMBER_DOWN_BUTTON].whenActive(new SpinClimber(1));
 		//gamepadButtons[RobotMap.CLIMBER_STOP_BUTTON].whenActive(new SpinClimber(0));
 		
