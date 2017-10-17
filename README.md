@@ -2,7 +2,7 @@
 Corona del Mar Robotics Team main repository for the 2017 First Robotics Competition 
 
 
-##Installing Libraries:
+## Installing Libraries:
 
 NavX: http://www.pdocs.kauailabs.com/navx-mxp/software/roborio-libraries/java/
 
